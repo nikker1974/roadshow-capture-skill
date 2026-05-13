@@ -105,7 +105,7 @@ URL 格式：`https://www.netroadshow.com/nrs/home/#!/?show=SHOW_ID`
 | `div` 按钮（非 `button`） | `page.evaluate('.btn-agree').click()` |
 | Hash 路由 `#!/?show=X` | Playwright 原生支持，无需处理 |
 | Session Taint（失败后锁定） | 重建干净浏览器上下文：首页 → 乱填 Entry Code → Continue → 恢复 |
-| 密码登录被拦截 | Email-Only 流程（zofundintl.com 域已验证） |
+| 密码登录被拦截 | Email-Only 流程（企业邮箱域已验证） |
 
 ---
 

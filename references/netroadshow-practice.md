@@ -22,7 +22,7 @@ graph TD
 - **路演 ID:** 1982744（从弹窗 URL 提取）
 - **URL:** `https://www.netroadshow.com/presentation/v2/1982744/MediaSlides`
 - **总页数:** 32 slides
-- **用户邮箱:** meng.ye@zofundintl.com
+- **用户邮箱:** your-email@your-company.com（示例）
 - **输出大小:** ~4.8 MB（32 页 1920×1080 截图）
 
 ## 关键技术要点
