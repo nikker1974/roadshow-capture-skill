@@ -1,8 +1,8 @@
 # RoadShow Capture Skill
 
-> 自动化捕获 NetRoadShow 路演/在线演示的所有页面并保存为 PDF。
+> 自动化捕获路演/在线演示页面并保存为 PDF。
 >
-> 由 Playwright 驱动，支持 **Hermes Agent** 和 **OpenClaw** 两大 AI Agent 平台。
+> 由 Playwright 驱动，支持 **NetRoadShow** 和 **DealRoadShow** 两大平台。
 
 ---
 
@@ -59,16 +59,27 @@ export NRS_EMAIL=your-email@company.com
 
 > 帮我抓这个路演：https://www.netroadshow.com/nrs/home/#!/?show=SHOW_ID
 
-或手动运行脚本：
+或：
 
+> 帮我抓这个路演：https://dealroadshow.com/e/MTNA2026
+
+### 手动运行
+
+NetRoadShow:
 ```bash
 python3 scripts/netroadshow-capture.py \
   --url "https://www.netroadshow.com/nrs/home/#!/?show=SHOW_ID" \
-  --email your@email.com \
   -o /tmp/roadshow_output
 ```
 
-输出为 `/tmp/roadshow_output/roadshow.pdf`。
+DealRoadShow:
+```bash
+python3 scripts/dealroadshow-capture.py \
+  --url "https://dealroadshow.com/e/XXXXXXX" \
+  -o /tmp/roadshow_output
+```
+
+两个脚本都读取 `NRS_EMAIL` 环境变量（或 `--email` 参数）。
 
 ---
 
@@ -88,13 +99,13 @@ metadata:
 
 ## 技术要点
 
-| 要点 | 说明 |
-|------|------|
-| 弹窗捕获 | 必须用 `expect_popup()` 阻塞等待，不能用 `page.on("popup")` |
-| Disclaimer 按钮 | `<div>` 非 `<button>`，需 `page.evaluate('.btn-agree').click()` |
-| 翻页 | `page.keyboard.press("ArrowRight")` 逐页前进 |
-| PDF 合成 | Pillow 需显式指定 `format='PDF'` |
-| Email 配置 | 环境变量 `NRS_EMAIL` → `--email` 参数 → agent 提问 |
+| 要点 | NetRoadShow | DealRoadShow |
+|------|-------------|--------------|
+| 弹窗捕获 | `expect_popup()` 阻塞等待 | 同页面跳转，无需处理 |
+| Disclaimer 按钮 | `<div>`，需 `page.evaluate('.btn-agree').click()` | 标准 `<button>`，直接 `.click()` |
+| 翻页 | `page.keyboard.press("ArrowRight")` | 同（URL 变，可检测末页） |
+| PDF 合成 | Pillow 需显式 `format='PDF'` | 同 |
+| Email 配置 | `NRS_EMAIL` 环境变量 | 同 |
 
 详见 [`references/netroadshow-practice.md`](references/netroadshow-practice.md)。
 
