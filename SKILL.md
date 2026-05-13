@@ -122,9 +122,10 @@ URL 格式：`https://dealroadshow.com/e/XXXXXXXX`
 ### DealRoadShow 流程要点
 
 - **无弹窗**：认证后同页面跳转，不需要 `expect_popup()`
-- **标准按钮**：Disclaimer 的 "I Agree" 是标准 `<button>`，直接 `.click()`
-- **URL 感知翻页**：`/e/XXXX/{page}` 格式，翻页后 URL 变化，可用 URL 不变判定末页
-- **总页数检测**：从页面 "X of Y" 文本提取
+- **I Agree 按钮**：必须用 Playwright locator `.click()`，不要用 `page.evaluate()`（JS 点击不触发导航）
+- **翻页检测**：通过 `input[data-test="currentSlideInput"]` 的 `value` 属性读取当前页码；"of 32" 文本提取总数
+- **URL 格式不确定**：有时 `/e/XXXX/1`（带页码），有时 `/e/XXXX`（不带），因此翻页终点不能依赖 URL 变化
+- **总页数检测**：从页面 "of 32" 文本提取总数，翻页后用 input value 是否增加判定终点
 
 ---
 
